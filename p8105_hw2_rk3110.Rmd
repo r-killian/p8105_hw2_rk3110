@@ -1,0 +1,17 @@
+---
+title: "Homework 2"
+author: Rose Killian (rk3110)
+output: github_document
+---
+
+# Section 0
+
+Loading the libraries needed for this homework.
+
+```{r, message = FALSE}
+library(tidyverse)
+```
+
+
+# Problem 1
+

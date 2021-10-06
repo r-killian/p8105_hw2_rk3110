@@ -1,1 +1,3 @@
-# p8105_hw2_rk3110
+# Homework 2
+
+This is the repository for Homework 2 in p8105
