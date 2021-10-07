@@ -27,12 +27,49 @@ trash_df =
 
 # Problem 2
 
-Now we take a look at the FiveThirtyEight data. Let's import the first csv, clean names, and separate the date variable into its components.
+## Part 1
+Now we take a look at the FiveThirtyEight data. Let's import the first csv, clean names, separate the date variable into its components, and replace the month number with its name.We will also create a new variable `president` with values `gop` or `dem` and remove the variables `prez_dem`, `prez_gop`, and `day`.
 
 ```{r}
 pols_df = 
   read_csv("data/pols-month.csv") %>% 
   janitor::clean_names() %>% 
-  separate(mon, into = c("year", "month", "day"), sep = "/")
+  separate(mon, into = c("month", "day", "year"), sep = "/", convert = TRUE) %>% 
+  mutate(
+    month = month.name[month],
+    president = recode(prez_dem, `0` = "gop", `1` = "dem")) %>% 
+  select(-day, -prez_dem, -prez_gop) %>% 
+  relocate(year)
 ```
 
+## Part 2
+Next we move on to the snp.csv. We can reuse the separate code from part one here to separate the date components.
+
+```{r}
+snp_df = 
+  read_csv("data/snp.csv") %>% 
+  janitor::clean_names() %>% 
+  separate(date, into = c("month", "day", "year"), sep = "/", convert = TRUE) %>% 
+  mutate(month = month.name[month]) %>% 
+  relocate(year, month)
+```
+
+## Part 3
+Moving on to unemployment.csv. To match with the other two data sets, we need the columns to be year, month, and unemployment.The months are listed in the .csv as their three letter abbreviations so we need to fix that as well *(working on that bit)*. 
+
+```{r}
+unemployment_df = 
+  read_csv("data/unemployment.csv") %>% 
+  janitor::clean_names() %>% 
+  pivot_longer(
+    jan:dec,
+    names_to = "month",
+    values_to = "percent_unemployed"
+  ) %>%
+  relocate(year, month)
+```
+
+
+# Problem 3
+
+A problem for later
