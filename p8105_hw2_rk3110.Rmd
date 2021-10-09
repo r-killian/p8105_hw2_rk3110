@@ -147,3 +147,35 @@ baby_df %>%
     knitr::kable(caption = "Popularity of the Name Olivia for Female Babies")
 ```
 
+Looking at male children, let's make a similar table with the name *Need to figure out popular boys name*
+
+```{r}
+baby_df %>% 
+  filter(gender == "male", rank == 1) %>% 
+  view()
+```
+
+Look's like "Jayden" is often ranked #1 for boys among a number of ethnic groups so we will go with that.
+
+```{r}
+baby_df %>% 
+  filter(childs_first_name == "jayden", gender == "male") %>% 
+  select(year_of_birth, ethnicity, rank) %>% 
+  pivot_wider(
+    names_from = "year_of_birth",
+    values_from = "rank"
+  ) %>% 
+    knitr::kable(caption = "Popularity of the Name Jayden for Male Babies")
+```
+
+"Jayden" is not very popular among the White non-Hispanic group. White non-Hispanic people favor "Joseph" or "David" but no other group uses those names frequently.
+
+Finally, looking at male, white non-Hispanic children born in 2016 let's make a scatter plot comparing the number of children with a name to its rank. 
+
+```{r}
+baby_df %>% 
+  filter(gender == "male", year_of_birth == 2016, ethnicity == "white non hispanic") %>% 
+  ggplot(aes(x = rank, y = count)) +
+  geom_point()
+```
+
