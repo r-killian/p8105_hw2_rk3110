@@ -4,8 +4,6 @@ author: Rose Killian (rk3110)
 output: github_document
 ---
 
-# Section 0
-
 Loading the libraries needed for this homework.
 
 ```{r, message = FALSE}
@@ -59,7 +57,7 @@ We end up with two data sets. The `trash_df` data frame contains `r nrow(trash_d
 
 # Problem 2
 
-## Part 1
+### Cleaning pols-month.csv
 Now we take a look at the FiveThirtyEight data. Let's import the first csv, clean names, separate the date variable into its components, and replace the month number with its name.We will also create a new variable `president` with values `gop` or `dem` and remove the variables `prez_dem`, `prez_gop`, and `day`.
 
 ```{r}
@@ -74,7 +72,7 @@ pols_df =
   relocate(year)
 ```
 
-## Part 2
+### Cleaning snp.csv
 Next we move on to the snp.csv. We can reuse the separate code from part one here to separate the date components.
 
 ```{r}
@@ -86,7 +84,7 @@ snp_df =
   relocate(year, month)
 ```
 
-## Part 3
+### Cleaning unemployment.csv
 Moving on to unemployment.csv. To match with the other two data sets, we need the columns to be year, month, and unemployment.The months are listed in the .csv as their three letter abbreviations so we need to fix that as well. 
 
 ```{r}
@@ -102,17 +100,18 @@ unemployment_df =
   relocate(year, month)
 ```
 
+
+### Joining data frames and description
+
 Now we join `pols_df` and `snp_df` and then join `unemployment_df` to the result
 
 ```{r}
-pols_snp_unemploy_df = 
+joined_df = 
   left_join(pols_df, snp_df, by = c("year", "month")) %>% 
   left_join(unemployment_df, by = c("year", "month"))
 ```
 
-*This is where a short paragraph, explaining what everything was originally and describing the new data set, will go*
-
-Our first data set, "pols-month," described the number of national politicians who are democrats or republicans at any given time. Our second data set, "snp," contained date information and an indicator of stock market performance. Our third data set, "unemployment," detailed the percentage of unemployment at any given time. *Describe the new df*
+Our first data set, "pols-month," described the number of national politicians who are democrats or republicans between `r min(pull(pols_df, year))` and `r max(pull(pols_df, year))`. Our second data set, "snp," contained date information and an indicator of stock market performance. Our third data set, "unemployment," detailed the monthly percentage of unemployment between `r min(pull(unemployment_df, year))` and `r max(pull(unemployment_df, year))`. Our new data set contains `r nrow(joined_df)` observations of 12 variables, including, year, month, political party of the president(`president`), number of democratic and republican politicians who are governors (`gov_gop` and `gov_dem`), senate members (`sen_gop` and `sen_dem`), or representatives (`rep_gop` and `rep_dem`). It also includes the closing values of the S&P stock index (`close`) and monthly unemployment as a percentage (`percent_unemployed`). The information in this data set ranges from years `r min(pull(joined_df, year))` to `r max(pull(joined_df, year))`.
 
 # Problem 3
 
