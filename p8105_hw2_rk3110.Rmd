@@ -25,7 +25,7 @@ trash_df =
       range = "A2:N574"
 ) %>% 
   janitor::clean_names() %>% 
-  drop_na(dumpster) %>% 
+  drop_na() %>% 
   mutate(sports_balls = round(sports_balls))
 ```
 
@@ -54,15 +54,7 @@ prcp_df =
   relocate(year)
 ```
 
-*Paragraph about the data goes here!* the total precipitation in 2018 was `r sum(pull(prcp_2018, total))` inches. The median number of sports balls in a dumpster in 2019 was `r trash_df_2019 = filter(trash_df, year == 2019)``r  median(pull(trash_df_2019, sports_balls))` balls.
-
-```{r}
-trash_df_2019 = 
-  filter(trash_df, year == 2019)
-
-  median(pull(trash_df_2019, sports_balls))
-```
-
+We end up with two data sets. The `trash_df` data frame contains `r nrow(trash_df)` observations of dumpsters filled by Mr. Trash Wheel between `r min(pull(trash_df, year))` and `r max(pull(trash_df, year))`. It includes the weight in tons of each dumpster and the amount of various types of trash such as plastic bottles and cigarette butts. The `prcp_df` data frame describes the total precipitation in inches across `r nrow(prcp_df)` months from January 2018 to December 2019. The total precipitation in 2018 was `r sum(pull(prcp_2018, total))` inches. The median number of sports balls in a dumpster in 2019 was `r trash_df_2019 = filter(trash_df, year == 2019)``r  median(pull(trash_df_2019, sports_balls))` balls.
 
 
 # Problem 2
