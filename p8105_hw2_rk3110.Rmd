@@ -54,6 +54,16 @@ prcp_df =
   relocate(year)
 ```
 
+*Paragraph about the data goes here!* the total precipitation in 2018 was `r sum(pull(prcp_2018, total))` inches. The median number of sports balls in a dumpster in 2019 was `r trash_df_2019 = filter(trash_df, year == 2019)``r  median(pull(trash_df_2019, sports_balls))` balls.
+
+```{r}
+trash_df_2019 = 
+  filter(trash_df, year == 2019)
+
+  median(pull(trash_df_2019, sports_balls))
+```
+
+
 
 # Problem 2
 
