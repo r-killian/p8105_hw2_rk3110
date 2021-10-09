@@ -115,6 +115,8 @@ Our first data set, "pols-month," described the number of national politicians w
 
 # Problem 3
 
+### Cleaning data
+
 Importing "Popular_Baby_Names.csv" and cleaning the data. Some entries in year 2011 are duplicated and need to be removed. The ethnicity coding in 2012 truncated the ethnicity in some entries. We will also change all the entries to lowercase for consistency.
 
 ```{r}
@@ -134,6 +136,9 @@ baby_df =
   distinct(year_of_birth, gender, ethnicity, childs_first_name, .keep_all = T)
 ```
 
+
+### Olivia Popularity Ranking 
+
 Next we will make a table showing the yearly popularity rank of the name "Olivia" by ethnicity.
 
 ```{r}
@@ -147,7 +152,10 @@ baby_df %>%
     knitr::kable(caption = "Popularity of the Name Olivia for Female Babies")
 ```
 
-Looking at male children, let's make a similar table with the name *Need to figure out popular boys name*
+
+### Popular Male Baby Name
+
+Lets find a popular name among male children.
 
 ```{r}
 baby_df %>% 
@@ -168,7 +176,10 @@ baby_df %>%
     knitr::kable(caption = "Popularity of the Name Jayden for Male Babies")
 ```
 
-"Jayden" is not very popular among the White non-Hispanic group. White non-Hispanic people favor "Joseph" or "David" but no other group uses those names frequently.
+*"Jayden" is not very popular among the White non-Hispanic group. White non-Hispanic people favor "Joseph" or "David," but no other group uses those names frequently.*
+
+
+## Scatterplot
 
 Finally, looking at male, white non-Hispanic children born in 2016 let's make a scatter plot comparing the number of children with a name to its rank. 
 
